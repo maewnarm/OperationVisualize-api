@@ -1,6 +1,5 @@
 package api
 
-//
 import (
 	"database/sql"
 	"fmt"
@@ -32,15 +31,21 @@ type recordTable struct {
 	NGCODE string `json:"ng_code"`
 }
 type summaryRecordTable struct {
-	Avg_ct  float32 `json:"avg_ct"`
+	Avg_mt  float32 `json:"avg_mt"`
+	Avg_ht  float32 `json:"avg_ht"`
 	Avg_wt  float32 `json:"avg_wt"`
+	Cnt_mt  int     `json:"cnt_mt"`
+	Cnt_ht  int     `json:"cnt_ht"`
+	Cnt_wt  int     `json:"cnt_wt"`
 	S_total float32 `json:"s_total"`
-	S_ct    float32 `json:"s_ct"`
+	S_mt    float32 `json:"s_mt"`
+	S_ht    float32 `json:"s_ht"`
 	S_wt    float32 `json:"s_wt"`
 	S_ngct  float32 `json:"s_ngct"`
 	S_loss  float32 `json:"s_loss"`
 	S_na    float32 `json:"s_na"`
-	P_ct    float32 `json:"p_ct"`
+	P_mt    float32 `json:"p_mt"`
+	P_ht    float32 `json:"p_ht"`
 	P_wt    float32 `json:"p_wt"`
 	P_ngct  float32 `json:"p_ngct"`
 	P_loss  float32 `json:"p_loss"`
@@ -151,15 +156,21 @@ func GetSummaryData(c echo.Context) (err error) {
 	for rows.Next() {
 		var data summaryRecordTable
 		errdat := rows.Scan(
-			&data.Avg_ct,
+			&data.Avg_mt,
+			&data.Avg_ht,
 			&data.Avg_wt,
+			&data.Cnt_mt,
+			&data.Cnt_ht,
+			&data.Cnt_wt,
 			&data.S_total,
-			&data.S_ct,
+			&data.S_mt,
+			&data.S_ht,
 			&data.S_wt,
 			&data.S_ngct,
 			&data.S_loss,
 			&data.S_na,
-			&data.P_ct,
+			&data.P_mt,
+			&data.P_ht,
 			&data.P_wt,
 			&data.P_ngct,
 			&data.P_loss,

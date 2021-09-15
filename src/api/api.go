@@ -31,6 +31,7 @@ type recordTable struct {
 	NGCODE string `json:"ng_code"`
 }
 type summaryRecordTable struct {
+	Mcname  string  `json:"mcname"`
 	Avg_mt  float32 `json:"avg_mt"`
 	Avg_ht  float32 `json:"avg_ht"`
 	Avg_wt  float32 `json:"avg_wt"`
@@ -144,9 +145,11 @@ func GetSummaryData(c echo.Context) (err error) {
 	shift := detailArr[2]
 	st_time := detailArr[3]
 	en_time := detailArr[4]
+	st_break := detailArr[5]
+	en_break := detailArr[6]
 
-	sqlTxt := fmt.Sprintf("set nocount on; EXEC [dbo].[SummaryOperationRecord] '%s','%s','%s','%s','%s'",
-		mcname, st_date, shift, st_time, en_time)
+	sqlTxt := fmt.Sprintf("set nocount on; EXEC [dbo].[SummaryOperationRecord] '%s','%s','%s','%s','%s','%s','%s'",
+		mcname, st_date, shift, st_time, en_time, st_break, en_break)
 	fmt.Println(sqlTxt)
 	rows, err := sqlCon.Conn.Query(sqlTxt)
 	if err != nil {
@@ -156,6 +159,7 @@ func GetSummaryData(c echo.Context) (err error) {
 	for rows.Next() {
 		var data summaryRecordTable
 		errdat := rows.Scan(
+			&data.Mcname,
 			&data.Avg_mt,
 			&data.Avg_ht,
 			&data.Avg_wt,

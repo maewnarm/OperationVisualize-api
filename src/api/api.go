@@ -145,11 +145,15 @@ func GetSummaryData(c echo.Context) (err error) {
 	shift := detailArr[2]
 	st_time := detailArr[3]
 	en_time := detailArr[4]
-	st_break := detailArr[5]
-	en_break := detailArr[6]
+	st_break_1 := detailArr[5]
+	en_break_1 := detailArr[6]
+	st_break_2 := detailArr[7]
+	en_break_2 := detailArr[8]
+	st_break_3 := detailArr[9]
+	en_break_3 := detailArr[10]
 
-	sqlTxt := fmt.Sprintf("set nocount on; EXEC [dbo].[SummaryOperationRecord] '%s','%s','%s','%s','%s','%s','%s'",
-		mcname, st_date, shift, st_time, en_time, st_break, en_break)
+	sqlTxt := fmt.Sprintf("set nocount on; EXEC [dbo].[SummaryOperationRecord] '%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'",
+		mcname, st_date, shift, st_time, en_time, st_break_1, en_break_1, st_break_2, en_break_2, st_break_3, en_break_3)
 	fmt.Println(sqlTxt)
 	rows, err := sqlCon.Conn.Query(sqlTxt)
 	if err != nil {
